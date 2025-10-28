@@ -15,6 +15,9 @@ library(ggplot2)
 estudio_taxon <- read.csv("estudio_taxon.csv", fileEncoding = "UTF-8", sep = ";",
                          na = "")
 
+###
+#AGREGAR: LIMPIEZA DE TABLA: DEJAR SÓLO COLUMNA 1,2,3 Y 5 (ELIMINAR COLUMNA 4 Y DESDE LA 6 AL FINAL)
+
 
 #marcar datos conflictivos-----
 
@@ -96,6 +99,9 @@ taxon_corregido <- taxon_sag %>%
                       ~ nombre_cientifico_sag
                     ))
 
+#agregar que llame a la tabla final guardada, creando un archivo nuevo "estudio_taxa_new"
+
+#agregaría visualización con la coumna 4 (categoria) y la columna 5 (familia)
 
 
 
