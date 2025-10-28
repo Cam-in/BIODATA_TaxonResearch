@@ -1,6 +1,6 @@
-#Trabajo con taxonomía de aves
-#2025-10-23
-#Catalina Marín Cruz
+#Trabajo con taxonomía de peces
+#2025-10-28
+#Camila Neder & Julián CXaro,. usando fork e Catalina Marin
 
 #settings####
 
@@ -12,26 +12,26 @@ library(ggplot2)
 
 #datos----
 
-estudio_aves <- read.csv("estudio_aves.csv", fileEncoding = "UTF-8", sep = ";",
+estudio_taxon <- read.csv("estudio_taxon.csv", fileEncoding = "UTF-8", sep = ";",
                          na = "")
 
 
 #marcar datos conflictivos-----
 
-aves_marcado <- estudio_aves %>% 
+taxon_marcado <- estudio_taxon %>% 
   mutate(conflicto = 
            case_when(orden_sacc != orden_sag | 
                      nombre_cientifico_sacc != nombre_cientifico_sag ~ "conflicto_taxonomico",
                      orden_sacc == orden_sag ~ "sin_conflicto"
            ))
 #conteo de datos conflictivos---
-n_conflictos <- aves_marcado %>% 
+n_conflictos <- taxon_marcado %>% 
                 group_by(conflicto) %>% 
                 summarise( conteo = n())
 
 #validación taxonomica-----
 #validación taxonómica sacc-----
-revision_taxonomica_sacc <- name_backbone_checklist(aves_marcado$nombre_cientifico_sacc) #revision taxonómica según sacc
+revision_taxonomica_sacc <- name_backbone_checklist(taxon_marcado$nombre_cientifico_sacc) #revision taxonómica según sacc
 
 conteo_matchtype1 <- revision_taxonomica_sacc %>%
                       group_by(matchType) %>% 
@@ -41,7 +41,7 @@ fuzzy_taxsacc <- revision_taxonomica_sacc %>%
 
 #validación taxonomica sag----
 
-revision_taxonomica_sag <- name_backbone_checklist(aves_marcado$nombre_cientifico_sag) #revision taxonómica según sag
+revision_taxonomica_sag <- name_backbone_checklist(taxon_marcado$nombre_cientifico_sag) #revision taxonómica según sag
 
 conteo_matchtype2 <- revision_taxonomica_sag %>%
   group_by(matchType) %>% 
@@ -75,12 +75,12 @@ print(grafico_comparativo)
 
 #reemplazar datos conflictivos con taxonomía GBIF----
 
-aves_sag <- aves_marcado %>% 
+taxon_sag <- taxon_marcado %>% 
             select(orden_sag, 
                    familia_sag, 
                    nombre_cientifico_sag)
 
-aves_corregido <- aves_sag %>% 
+taxon_corregido <- taxon_sag %>% 
                   mutate(orden = case_when( 
                     orden_sag != revision_taxonomica_sag$order 
                                 ~ revision_taxonomica_sag$order,
@@ -95,5 +95,6 @@ aves_corregido <- aves_sag %>%
                       nombre_cientifico_sag == revision_taxonomica_sag$canonicalName
                       ~ nombre_cientifico_sag
                     ))
+
 
 
