@@ -1,4 +1,4 @@
-# Tutorial para la comparación taxonómica con RGBIF
+# Aprendiendo el Fork, Branch, Pull, Push & Merge
 Creado por: Catalina Marín Cruz , Data Manager Instituto Milenio BASE
 
 ## Instrucciones previas
