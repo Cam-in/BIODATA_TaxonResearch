@@ -1,6 +1,6 @@
 #Trabajo con taxonomía de peces
 #2025-10-28
-#Camila Neder & Julián CXaro,. usando fork e Catalina Marin
+#Camila Neder & Julián Caaro,. usando fork e Catalina Marin
 
 #settings####
 
@@ -95,6 +95,7 @@ taxon_corregido <- taxon_sag %>%
                       nombre_cientifico_sag == revision_taxonomica_sag$canonicalName
                       ~ nombre_cientifico_sag
                     ))
+
 
 
 
